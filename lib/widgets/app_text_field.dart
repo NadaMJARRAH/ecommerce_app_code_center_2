@@ -13,6 +13,7 @@ class AppTextField extends StatelessWidget {
     this.constraints = 0,
     this.suffix,
     this.suffixOnPress,
+    this.errorText,
     super.key,
   });
 
@@ -26,8 +27,7 @@ class AppTextField extends StatelessWidget {
   final IconData? suffix;
   final void Function()? suffixOnPress;
   final TextEditingController controller;
-
-
+  final String? errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -38,39 +38,52 @@ class AppTextField extends StatelessWidget {
       maxLines: maxLines,
       expands: expands,
       controller: controller,
-      cursorColor:  const Color(0xFF272459),
+      cursorColor: const Color(0xFF272459),
       style: GoogleFonts.poppins(color: const Color(0xFF272459), fontSize: 16),
       decoration: InputDecoration(
+        errorText: errorText,
         suffixIcon: IconButton(
           icon: Icon(suffix),
-      color: const Color(0xFFC5C5C7),
-      onPressed: suffixOnPress,
-    ),
+          color: const Color(0xFFC5C5C7),
+          onPressed: suffixOnPress,
+        ),
 
         hintText: hint,
         //*****************************************//
         contentPadding: const EdgeInsetsDirectional.symmetric(horizontal: 16),
         constraints: BoxConstraints(maxHeight: constraints),
-          //*****************************************//
+        //*****************************************//
         hintStyle: GoogleFonts.poppins(
           fontSize: 16,
           color: const Color(0xFFC5C5C7),
         ),
         //*****************************************//
-        enabledBorder:  OutlineInputBorder(
-          borderSide:  const BorderSide(
-            color:Color(0xFFC5C5C7) ,
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide:  const BorderSide(
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
             color: Color(0xFFC5C5C7),
           ),
           borderRadius: BorderRadius.circular(10),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            color: Color(0xFFC5C5C7),
+          ),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        //*****************************************//
+        errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              // width: 1,
+              color: Color(0xFFFF4343),
+            )),
+        focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              // width: 1,
+              color: Color(0xFFFF4343),
+            )),
       ),
     );
   }
-
 }

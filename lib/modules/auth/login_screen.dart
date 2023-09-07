@@ -16,6 +16,9 @@ class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController _emailTextEditingController;
   late TextEditingController _passwordTextEditingController;
   late TapGestureRecognizer _tapGestureRecognizer;
+  String? _errorEmailValue;
+  String? _errorPasswordValue;
+
 
   @override
   void initState() {
@@ -230,18 +233,20 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 24,
             ),
             AppTextField(
+              errorText: _errorEmailValue,
               hint: 'Email Address',
               keyboard: TextInputType.emailAddress,
               controller: _emailTextEditingController,
               maxLines: null,
               minLines: null,
               expands: true,
-              constraints: 50,
+              constraints: _errorEmailValue != null ? 76 :  56,
             ),
             const SizedBox(
               height: 16,
             ),
             AppTextField(
+              errorText: _errorPasswordValue,
               controller: _passwordTextEditingController,
               hint: 'Password',
               keyboard: TextInputType.visiblePassword,
@@ -250,7 +255,7 @@ class _LoginScreenState extends State<LoginScreen> {
               minLines: 1,
               maxLines: 1,
               expands: false,
-              constraints: 56,
+              constraints: _errorPasswordValue != null ? 76 : 56,
               suffixOnPress: () {
                 setState(() {
                   _obscure = !_obscure;
@@ -328,18 +333,32 @@ class _LoginScreenState extends State<LoginScreen> {
   bool checkData() {
     if (_emailTextEditingController.text.isNotEmpty &&
         _passwordTextEditingController.text.isNotEmpty) {
+      setStateErrorValue();
       return true;
     }
+
+    setStateErrorValue();
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        backgroundColor: Color(0xFFFF4343),
-        content: Text('Enter Required Data'),
+       SnackBar(
+        backgroundColor: const Color(0xFFFF4343),
+        content: const Text('Enter Required Data'),
+        duration: const Duration(seconds: 3),
+        dismissDirection: DismissDirection.horizontal,
+        margin: const EdgeInsetsDirectional.symmetric(horizontal: 10,vertical: 10),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
     return false;
   }
 
+  void setStateErrorValue(){
+    setState(() {
+      _errorEmailValue = _emailTextEditingController.text.isEmpty ? 'Enter Email': null;
+      _errorPasswordValue = _passwordTextEditingController.text.isEmpty ? 'Enter Password': null;
+    });
+}
   void login() {
-    Navigator.pushNamed(context, '');
+    Navigator.pushNamed(context, '/search_screen');
   }
 }
