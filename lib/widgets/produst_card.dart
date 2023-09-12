@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class ProductCard extends StatelessWidget {
   const ProductCard({
     this.image,
@@ -9,6 +8,7 @@ class ProductCard extends StatelessWidget {
     required this.oldPrice,
     required this.price,
     required this.discount,
+    this.onPress,
     super.key,
   });
 
@@ -17,7 +17,7 @@ class ProductCard extends StatelessWidget {
   final double price;
   final double oldPrice;
   final String discount;
-
+  final VoidCallback? onPress;
 
   @override
   Widget build(BuildContext context) {
@@ -104,14 +104,35 @@ class ProductCard extends StatelessWidget {
             const SizedBox(
               height: 3,
             ),
-            Text(
-              '\$$oldPrice',
-              style: GoogleFonts.poppins(
-                fontSize: 14,
-                color: const Color(0xFF8A8A8E),
-                decoration: TextDecoration.lineThrough,
-                decorationThickness: 2,
-              ),
+            Row(
+              children: [
+                Text(
+                  '\$$oldPrice',
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    color: const Color(0xFF8A8A8E),
+                    decoration: TextDecoration.lineThrough,
+                    decorationThickness: 2,
+                  ),
+                ),
+                const Spacer(),
+                IconButton(
+                  onPressed: onPress,
+                  icon: const Icon(
+                    Icons.favorite_outline_outlined,
+                  ),
+                  color: const Color(0xFFFF4343),
+                  padding: EdgeInsetsDirectional.zero,
+
+                  // hoverColor: Colors.redAccent,
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  constraints: const BoxConstraints(),
+                  style: const ButtonStyle(
+                      // shadowColor: MaterialStateProperty.all(Color(0xFFFF4343))
+                      ),
+                )
+              ],
             ),
           ],
         ),

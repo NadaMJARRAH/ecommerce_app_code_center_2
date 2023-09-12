@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_code_center_2/home/home_screen.dart';
 import 'package:ecommerce_app_code_center_2/modules/auth/login_screen.dart';
 import 'package:ecommerce_app_code_center_2/modules/auth/sign_up_screen.dart';
 import 'package:ecommerce_app_code_center_2/modules/categories/search_screen.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/sign_up_screen': (context) => const SignUpScreen(),
         '/profile_screen': (context) => const ProfileScreen(),
         '/search_screen': (context) => const SearchScreen(),
+        '/home_screen': (context) => const HomeScreen(),
 
 
 

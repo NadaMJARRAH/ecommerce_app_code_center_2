@@ -12,8 +12,11 @@ class AppTextField extends StatelessWidget {
     this.expands = false,
     this.constraints = 0,
     this.suffix,
+    this.prefix,
     this.suffixOnPress,
     this.errorText,
+    this.filled = false,
+    this.showBorder = true,
     super.key,
   });
 
@@ -25,9 +28,13 @@ class AppTextField extends StatelessWidget {
   final bool expands;
   final String hint;
   final IconData? suffix;
+  final Widget? prefix;
   final void Function()? suffixOnPress;
   final TextEditingController controller;
   final String? errorText;
+  final bool filled;
+  final bool showBorder;
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +54,10 @@ class AppTextField extends StatelessWidget {
           color: const Color(0xFFC5C5C7),
           onPressed: suffixOnPress,
         ),
-
+        prefixIcon: prefix,
         hintText: hint,
+        fillColor: const Color(0xFFEFEFF0),
+        filled: filled,
         //*****************************************//
         contentPadding: const EdgeInsetsDirectional.symmetric(horizontal: 16),
         constraints: BoxConstraints(maxHeight: constraints),
@@ -56,34 +65,24 @@ class AppTextField extends StatelessWidget {
         hintStyle: GoogleFonts.poppins(
           fontSize: 16,
           color: const Color(0xFFC5C5C7),
+
         ),
         //*****************************************//
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Color(0xFFC5C5C7),
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Color(0xFFC5C5C7),
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
+        enabledBorder: buildOutlineInputBorder(color: const Color(0xFFB9B9BB)),
+        focusedBorder: buildOutlineInputBorder(color: const Color(0xFFB9B9BB)),
         //*****************************************//
-        errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(
-              // width: 1,
-              color: Color(0xFFFF4343),
-            )),
-        focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(
-              // width: 1,
-              color: Color(0xFFFF4343),
-            )),
+        errorBorder: buildOutlineInputBorder(color: const Color(0xFFFF4343)),
+        focusedErrorBorder:  buildOutlineInputBorder(color: const Color(0xFFFF4343)),
       ),
     );
+  }
+
+  OutlineInputBorder buildOutlineInputBorder({required Color color}) {
+    return OutlineInputBorder(
+        borderSide:  BorderSide(
+          color: showBorder?color : Colors.transparent,
+        ),
+        borderRadius: BorderRadius.circular(10),
+      );
   }
 }

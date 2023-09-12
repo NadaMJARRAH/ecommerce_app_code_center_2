@@ -359,6 +359,6 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 }
   void login() {
-    Navigator.pushNamed(context, '/search_screen');
+    Navigator.pushNamed(context, '/home_screen');
   }
 }
